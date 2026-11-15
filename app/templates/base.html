@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}GreenRide Bus Booking{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static',path='/style.css') }}">
+<script defer src="{{ url_for('static',path='/script.js') }}"></script></head><body>
+<header class="topbar"><a class="brand" href="/">GreenRide<span>.</span></a><nav>
+<a href="/">Home</a><a href="/search">Find Buses</a>
+{% if user %}<a href="/dashboard">My Bookings</a>{% if user.role in ['operator','admin'] %}<a href="/operator">Operator</a>{% endif %}
+<span class="nav-user">Hi, {{ user.name }}</span><a class="outline" href="/logout">Logout</a>
+{% else %}<a href="/login">Login</a><a class="outline" href="/register">Sign up</a>{% endif %}
+</nav></header><main class="container">{% block content %}{% endblock %}</main>
+<footer>GreenRide Bus Booking · Simple, safe and comfortable journeys.</footer></body></html>

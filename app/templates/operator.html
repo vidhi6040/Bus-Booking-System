@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Operator | GreenRide{% endblock %}{% block content %}
+<section class="heading"><p class="eyebrow">OPERATIONS</p><h1>Operator dashboard</h1><p class="muted">Trip occupancy and passenger manifest.</p></section>
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}<h2 class="section-title">Trip occupancy</h2><div class="table-wrap"><table><tr><th>Route</th><th>Bus</th><th>Departure</th><th>Booked</th><th>Available</th></tr>
+{% for t in trips %}<tr><td>{{ t.origin }} → {{ t.destination }}</td><td>{{ t.bus_name }} ({{ t.bus_number }})</td><td>{{ t.departure.strftime('%d %b %Y %I:%M %p') }}</td><td>{{ t.booked }}</td><td>{{ t.available }}</td></tr>{% else %}<tr><td colspan="5">No trips found.</td></tr>{% endfor %}</table></div>
+<h2 class="section-title">Passenger manifest</h2><div class="table-wrap"><table><tr><th>PNR</th><th>Passenger</th><th>Phone</th><th>Route</th><th>Seat</th><th>Status</th></tr>
+{% for m in manifest %}<tr><td>{{ m.pnr }}</td><td>{{ m.passenger_name }}</td><td>{{ m.passenger_phone }}</td><td>{{ m.origin }} → {{ m.destination }}</td><td>{{ m.seat_number }}</td><td>{{ m.status }}</td></tr>{% else %}<tr><td colspan="6">No bookings found.</td></tr>{% endfor %}</table></div>{% endblock %}

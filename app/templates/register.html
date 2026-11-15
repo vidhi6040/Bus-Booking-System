@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block title %}Register | GreenRide{% endblock %}{% block content %}
+<section class="form-wrap"><p class="eyebrow">JOIN GREENRIDE</p><h1>Create your account</h1><p class="muted">Register to search and book bus tickets.</p>
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}
+<form class="panel" method="post" action="/register"><label>Full name<input name="name" required maxlength="100"></label>
+<label>Email<input type="email" name="email" required></label><label>Phone<input name="phone" maxlength="20"></label>
+<label>Password<input type="password" name="password" minlength="8" required></label>
+<button class="button wide">Create account</button><p class="center muted">Already registered? <a href="/login">Login</a></p></form></section>{% endblock %}

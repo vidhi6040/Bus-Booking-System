@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}Find buses | GreenRide{% endblock %}{% block content %}
+<section class="heading"><p class="eyebrow">PLAN YOUR TRIP</p><h1>Find your bus</h1><p class="muted">Enter your route and travel date.</p></section>
+<form class="search-panel" method="get" action="/search"><label>From<input name="origin" value="{{ origin }}" placeholder="Delhi" required></label>
+<label>To<input name="destination" value="{{ destination }}" placeholder="Jaipur" required></label>
+<label>Travel date<input type="date" name="travel_date" value="{{ travel_date }}" required></label><button class="button">Search buses</button></form>
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}
+{% if trips %}<h2 class="section-title">Available trips</h2><div class="list">{% for t in trips %}
+<article class="trip"><div><h3>{{ t.bus_name }}</h3><p class="muted">{{ t.bus_number }} · {{ t.bus_type }}</p><strong>{{ t.origin }} → {{ t.destination }}</strong></div>
+<div><small>Departure</small><b>{{ t.departure.strftime('%d %b, %I:%M %p') }}</b><small>Arrival</small><b>{{ t.arrival.strftime('%d %b, %I:%M %p') }}</b></div>
+<div class="price"><strong>₹{{ "%.2f"|format(t.fare) }}</strong><small>{{ t.available }} seats left</small><a class="button small" href="/book/{{ t.id }}">Select</a></div></article>{% endfor %}</div>
+{% elif origin and destination and travel_date %}<div class="empty"><h3>No trips found</h3><p>Try another route or date.</p></div>{% endif %}{% endblock %}

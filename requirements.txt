@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+jinja2
+mysql-connector-python
+python-multipart
+python-dotenv
+bcrypt
+itsdangerous

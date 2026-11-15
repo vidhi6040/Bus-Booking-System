@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% block title %}Book seat | GreenRide{% endblock %}{% block content %}
+<section class="heading"><p class="eyebrow">COMPLETE YOUR BOOKING</p><h1>Passenger details</h1><p class="muted">{{ trip.origin }} → {{ trip.destination }} · {{ trip.departure.strftime('%d %b %Y, %I:%M %p') }}</p></section>
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}<div class="booking-layout"><form class="panel" method="post" action="/book/{{ trip.id }}">
+<h2>Passenger information</h2><label>Passenger name<input name="passenger_name" required maxlength="100"></label>
+<div class="two"><label>Age<input type="number" name="passenger_age" min="1" max="120" required></label>
+<label>Gender<select name="passenger_gender" required><option value="">Choose</option><option>Male</option><option>Female</option><option>Other</option></select></label></div>
+<label>Phone number<input name="passenger_phone" required maxlength="20"></label><label>Select seat<select name="seat_number" required><option value="">Choose a seat</option>
+{% for seat in seats %}{% if seat not in booked %}<option value="{{ seat }}">{{ seat }}</option>{% endif %}{% endfor %}</select></label>
+<button class="button wide">Confirm booking</button></form><aside class="summary"><p class="eyebrow">TRIP SUMMARY</p><h2>{{ trip.bus_name }}</h2><h3>{{ trip.origin }} → {{ trip.destination }}</h3>
+<p class="muted">{{ trip.departure.strftime('%d %b %Y, %I:%M %p') }}</p><hr><div class="between"><span>Ticket fare</span><b>₹{{ "%.2f"|format(trip.fare) }}</b></div><small class="muted">Seat is confirmed after the booking is saved.</small></aside></div>{% endblock %}

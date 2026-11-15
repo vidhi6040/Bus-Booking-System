@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block title %}My bookings | GreenRide{% endblock %}{% block content %}
+<section class="heading"><p class="eyebrow">YOUR ACCOUNT</p><h1>My bookings</h1><p class="muted">Welcome, {{ user.name }}. Manage your tickets here.</p></section>
+{% if success_pnr %}<div class="alert success">Booking confirmed! Your PNR is <b>{{ success_pnr }}</b>.</div>{% endif %}
+{% if error %}<div class="alert error">{{ error }}</div>{% endif %}
+{% if bookings %}<div class="list">{% for b in bookings %}<article class="panel ticket"><div class="between"><div><small>PNR</small><h3>{{ b.pnr }}</h3></div><span class="status {{ 'cancelled' if b.status=='CANCELLED' else '' }}">{{ b.status }}</span></div>
+<h3>{{ b.origin }} → {{ b.destination }}</h3><p class="muted">{{ b.bus_name }} · {{ b.departure.strftime('%d %b %Y, %I:%M %p') }} · Seat {{ b.seat_number }}</p>
+<div class="between"><b>₹{{ "%.2f"|format(b.amount) }}</b>{% if b.status=='CONFIRMED' %}<form method="post" action="/cancel/{{ b.id }}" onsubmit="return confirmCancel()"><button class="button danger small">Cancel ticket</button></form>{% else %}<small>Refund: {{ b.refund_status }} · ₹{{ "%.2f"|format(b.refund_amount) }}</small>{% endif %}</div></article>{% endfor %}</div>
+{% else %}<div class="empty"><h3>No bookings yet</h3><p>Your tickets will appear here after booking.</p><a class="button" href="/search">Find a bus</a></div>{% endif %}{% endblock %}
